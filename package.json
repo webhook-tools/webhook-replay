@@ -1,0 +1,23 @@
+{
+  "name": "webhook-replay",
+  "version": "0.1.0",
+  "description": "",
+  "bin": {
+    "webhook-replay": "bin/webhook-replay.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webhook-tools/webhook-replay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webhook-tools/webhook-replay/issues"
+  },
+  "homepage": "https://github.com/webhook-tools/webhook-replay#readme"
+}
