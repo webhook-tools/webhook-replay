@@ -39,7 +39,16 @@ async function main() {
 
   const ctx = {
     logs: [],
+    effects: new Map(), // key -> count
+
     log: (msg) => ctx.logs.push(msg),
+
+    effect: (key) => {
+      const k = String(key || "");
+      const next = (ctx.effects.get(k) || 0) + 1;
+      ctx.effects.set(k, next);
+      ctx.logs.push(`effect(${k})`);
+    },
   };
 
   console.log("webhook-replay");
@@ -69,13 +78,32 @@ async function main() {
 
   await Promise.all(calls);
 
-  if (failed > 0) {
+  // Detect duplicate side effects (v0.1.0)
+  const dupes = [];
+  for (const [k, count] of ctx.effects.entries()) {
+    if (count > 1) dupes.push({ key: k, count });
+  }
+
+  if (failed > 0 || dupes.length > 0) {
     console.log("❌ Failure detected");
-    console.log(`Handler errors: ${failed}/${runs}`);
+
+    if (failed > 0) {
+      console.log(`Handler errors: ${failed}/${runs}`);
+    }
+
+    if (dupes.length > 0) {
+      console.log("");
+      console.log("Duplicate side effects observed:");
+      for (const d of dupes) {
+        console.log(`- ${d.key}: ${d.count} executions`);
+      }
+    }
+
     process.exit(2);
   }
 
   console.log("✅ Completed");
+
   console.log(`Handler executions: ${ok}/${runs}`);
   if (ctx.logs.length) {
     console.log("");

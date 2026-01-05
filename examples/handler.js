@@ -1,4 +1,4 @@
 module.exports = async function handler(payload, ctx) {
-  // simulate a side effect
-  ctx.log(`chargeCustomer(${payload.id})`);
+  // declare an external side effect with a stable key
+  ctx.effect(`stripe.charge:${payload.id}`);
 };
