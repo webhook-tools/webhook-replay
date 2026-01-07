@@ -1,20 +1,20 @@
 {
   "name": "webhook-replay",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Replay webhook deliveries against a handler to detect duplicate side effects.",
-  "keywords": [],
   "bin": {
     "webhook-replay": "bin/webhook-replay.js"
   },
-  "main": "index.js",
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0",
-    "ci:replay": "webhook-replay ./examples/handler.js"
+    "ci:replay": "webhook-replay ./examples/handler.js",
+    "debug:replay": "webhook-replay debug ./examples/handler.js --trace"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/webhook-tools/webhook-replay.git"
   },
+  "keywords": ["webhook", "replay", "idempotency", "stripe", "testing", "ci"],
   "author": "",
   "license": "MIT",
   "bugs": {

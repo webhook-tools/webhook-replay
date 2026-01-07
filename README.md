@@ -12,6 +12,26 @@ npx webhook-replay path/to/handler.js
 The handler will be invoked multiple times using the same payload,
 including concurrent executions.
 
+---
+
+## Debug mode (Local Debugging Path)
+
+When you suspect “why did this run twice?”, use:
+
+webhook-replay debug ./path/to/handler.js --payload ./payload.json --trace
+
+Or provide payload inline:
+
+webhook-replay debug ./path/to/handler.js --payload-inline '{"id":"evt_123"}' --trace
+
+It prints:
+- how many times the handler ran
+- which side effects repeated
+- a minimal reproduction command
+- call-by-call trace timing (with --trace)
+
+---
+
 ## Exit codes (CI-safe)
 
 - `0` = safe (no duplicate side effects observed)
@@ -19,6 +39,8 @@ including concurrent executions.
 - `1` = tool error (bad input, failed to load handler, unexpected crash)
 
 This is intentional: in CI, **unsafe should fail the build**.
+
+---
 
 ## Declaring side effects
 
@@ -34,6 +56,8 @@ module.exports = async function handler(payload, ctx) {
 };
 ```
 
+---
+
 ## Output
 
 If duplicate side effects are detected, the run fails:
@@ -44,6 +68,8 @@ Duplicate side effects observed:
 - stripe.charge:evt_demo_123: 7 executions
 
 If no duplicates are observed, the run completes successfully.
+
+---
 
 ## CI Failure Path (GitHub Actions)
 

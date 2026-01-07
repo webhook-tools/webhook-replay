@@ -1,9 +1,9 @@
 module.exports = async function handler(payload, ctx) {
-  // pretend the handler is idempotent by gating on an in-memory key (demo only)
-  if (!ctx._seen) ctx._seen = new Set();
+  // Demo only: emulate a durable idempotency store using ctx.shared.kv (explicitly shared)
   const key = `stripe.charge:${payload.id}`;
-  if (ctx._seen.has(key)) return;
-  ctx._seen.add(key);
+
+  if (ctx.shared.kv.get(key)) return;
+  ctx.shared.kv.set(key, true);
 
   ctx.effect(key);
 };
