@@ -1,6 +1,6 @@
 {
   "name": "webhook-replay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Detect unsafe webhook handlers by replaying the same webhook multiple times.",
   "bin": {
     "webhook-replay": "bin/webhook-replay.js"
@@ -14,7 +14,14 @@
     "type": "git",
     "url": "git+https://github.com/webhook-tools/webhook-replay.git"
   },
-  "keywords": ["webhook", "replay", "idempotency", "stripe", "testing", "ci"],
+  "keywords": [
+    "webhook",
+    "replay",
+    "idempotency",
+    "stripe",
+    "testing",
+    "ci"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
