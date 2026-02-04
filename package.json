@@ -1,7 +1,7 @@
 {
   "name": "webhook-replay",
   "version": "1.0.0",
-  "description": "Replay webhook deliveries against a handler to detect duplicate side effects.",
+  "description": "Detect unsafe webhook handlers by replaying the same webhook multiple times.",
   "bin": {
     "webhook-replay": "bin/webhook-replay.js"
   },

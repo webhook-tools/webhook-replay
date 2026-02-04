@@ -546,7 +546,7 @@ async function main() {
   const unsafe = failed > 0 || dupes.length > 0;
 
   if (unsafe) {
-    console.log("❌ Failure detected");
+    console.log("❌ UNSAFE UNDER RETRY");
 
     if (failed > 0) {
       console.log(`Handler errors: ${failed}/${runs}`);
@@ -554,12 +554,16 @@ async function main() {
 
     if (dupes.length > 0) {
       console.log("");
-      console.log("Duplicate side effects observed:");
+      console.log("Duplicate side effects detected:");
       for (const d of dupes) {
         console.log(`- ${d.key}: ${d.count} executions`);
       }
     }
 
+    console.log("");
+    console.log("Retrying webhooks is normal.");
+    console.log("This handler is not safe under retry.");
+    console.log("To prevent this in production, enforce single-delivery at the gateway: WebhookGate.");
     console.log("");
 
     const payloadRepro =
@@ -605,7 +609,8 @@ async function main() {
   }
 
   // SAFE path exits 0
-  console.log("✅ Completed");
+  console.log("✅ SAFE UNDER RETRY");
+  console.log("No duplicate side effects detected.");
 
   if (opts.mode === "debug") {
     console.log("");
